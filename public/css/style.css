@@ -1,0 +1,125 @@
+@charset "utf-8";
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+html, body{
+    margin: 0px;
+}
+
+h1{
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+}
+
+.center{
+    margin: 0 auto;
+}
+
+.error_msg{
+    color:red;
+    font-weight: bold;
+}
+
+.wrap_content{
+    -webkit-display: flex;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+.main_content{
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-order: 2;
+    order: 2;
+    display: flex;
+}
+
+/*   SIDE MENU CSS */
+.side-title{
+    margin: 10px 0;
+}
+.side_menu{
+    width: 60px;
+    -webkit-order: 1;
+    order: 1;
+    background-color: #f1f1f1;
+    border-right: solid 3px  #cccccc47;
+}
+.side-icons{
+    font-size: 3.0rem;
+    padding: 10px 5px;
+    transition: all  0.3s ease;
+}
+.side-icons:hover, .note-menu:hover{
+    border-bottom: 2px solid #cccccc;
+    color: #c2b7ffe3;
+}
+.note-menu{
+    font-size: 2.0rem;
+    padding: 5px ;
+}
+
+.side_menu > .center{
+    text-align: center;
+}
+.nav_child{
+    margin-bottom: 5px;
+}
+
+/*  LIST VIEW CSS */
+.list_parent{
+    display: inline-block;
+    flex:0 400px;
+    vertical-align: top;
+    border-right: solid 3px  #cccccc47;
+}
+.list_top{
+    height: 70px;
+    padding: 10px;
+    -webkit-display: flex;
+    display: flex;
+    border-bottom: 1px solid #cccccc33;
+}
+
+.list_top_child{
+    padding: 0 10px 0 0;
+}
+
+.list_middle{
+    height: calc(100vh - 70px);
+    overflow-y: scroll;
+}
+.list_child{
+    height: 100px;
+    padding: 10px 0;
+    margin: 0 15px;
+    border-bottom: 1px solid #cccccc;
+    transition: all  0.3s ease;
+}
+.list_child:hover{
+    background-color: #c2b7ffe3;
+    font-style: italic;
+}
+
+#summernote img{
+    max-height: 650px;
+    max-width: 650px;
+}
+
+/* ARTICLE VIEW CSS */
+.article_view{
+    flex: 1 ;
+    height: 100vh;
+    display: inline-block;
+    padding: 0 20px;
+    vertical-align: top;
+    overflow-y: scroll;
+}
+.main_article{
+    padding: 20px;
+    font-size: 1.25rem;
+}
