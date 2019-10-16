@@ -65,7 +65,7 @@ function sendFile(file,tag) {
 
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        url:"imageUpload",
+        url:"note/imageUpload",
         type: "post",
         data: data,
         timeout: 10000,
@@ -86,7 +86,7 @@ function getList(type){
     let $method = $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         timeout: 10000,
-        url: "getList",
+        url: "note/getList",
         type: "post",
         data: {'type':type},
         beforeSend: function(jqXHR, settings){
@@ -118,7 +118,7 @@ function getNote(id){
     let $method = $.ajax({
          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
          timeout: 10000,
-         url: "getNote",
+         url: "note/getNote",
          type: "post",
          data: {'id':id},
          beforeSend: function(jqXHR, settings){
@@ -127,6 +127,7 @@ function getNote(id){
          console.log("getNote成功");
      }).fail(function(data){
          console.log('getNote失敗');
+         console.log(data);
      }).always(function(){
      });
      return $method;
@@ -166,7 +167,7 @@ let noteCreate = function() {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         timeout: 10000,
-        url: "create",
+        url: "note/create",
         type: "post",
         data: $("#new-note-form").serialize(),
         beforeSend: function(jqXHR, settings){
@@ -206,7 +207,7 @@ let noteSave = function() {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         timeout: 10000,
-        url: "update",
+        url: "note/update",
         type: "post",
         data: $data,
         beforeSend: function(jqXHR, settings){
@@ -228,7 +229,7 @@ let noteDelete = function(){
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             timeout: 10000,
-            url: "delete",
+            url: "note/delete",
             type: "post",
             data: $("#edit-note-form").serialize(),
             beforeSend: function(jqXHR, settings){
@@ -255,7 +256,7 @@ let noteRestore = function(){
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             timeout: 10000,
-            url: "restore",
+            url: "note/trash/restore",
             type: "post",
             data: $("#edit-note-form").serialize(),
             beforeSend: function(jqXHR, settings){
@@ -282,7 +283,7 @@ let noteForceDelete = function(){
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             timeout: 10000,
-            url: "forceDelete",
+            url: "note/trash/forceDelete",
             type: "post",
             data: $("#edit-note-form").serialize(),
             beforeSend: function(jqXHR, settings){
@@ -310,7 +311,7 @@ $(function(){
         console.log("クリックされました!");
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url:"/note/api_ajax/get_json",
+            url:"note/api_ajax/get_json",
             type:"post",
             dataType:'json',
             data: {
