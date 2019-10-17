@@ -93,10 +93,12 @@ class NoteController extends Controller
 
     public function delete(Request $req){
         User::find(Auth::id())->notes()->where('id',$req->id)->delete();
+        return $req->id;
     }
 
     public function forceDelete(Request $req){
         Note::onlyTrashed()->where('user_id',Auth::id())->where('id',$req->id)->forceDelete();
+        return $req->id;
     }
 
     public function trashList(Request $req){
@@ -106,6 +108,7 @@ class NoteController extends Controller
 
     public function restore(Request $req){
         Note::onlyTrashed()->where('user_id',Auth::id())->where('id',$req->id)->restore();
+        return $req->id;
     }
 
     public function imageUpload(Request $req){
@@ -118,6 +121,7 @@ class NoteController extends Controller
                 $destination = '/home/vagrant/code/journalapp/public/images/' . $filename; //change this directory
                 $location = $_FILES["file"]["tmp_name"];
                 move_uploaded_file($location, $destination);
+                logger($filename);
                 echo 'http://homestead.test/images/' . $filename;//change this URL
             }
             else

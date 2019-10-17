@@ -15,7 +15,7 @@
     <div class="center">
         <div class="list_top">
             <div class="list_top_child">
-                <a href="/note">
+                <a href="/note/">
                     <i id="" class="far fa-edit note-menu" title="New Note"></i>
                 </a>
             </div>

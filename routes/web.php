@@ -15,18 +15,20 @@ use Symfony\Component\HttpKernel\DataCollector\AjaxDataCollector;
 |
 */
 Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/logout',function(){
     Auth::logout();
     return view('welcome');
 });
 
 Route::group(['prefix' => 'note', 'middleware' => 'auth'],function(){
-    Route::get('','NoteController@index');
+    Route::get('/','NoteController@index');
     Route::post('create','NoteController@create');
     Route::post('update', 'NoteController@update');
     Route::post('delete','NoteController@delete');
@@ -45,6 +47,3 @@ Route::group(['prefix' => 'note', 'middleware' => 'auth'],function(){
 
 
 });
-
-
-

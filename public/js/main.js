@@ -65,7 +65,7 @@ function sendFile(file,tag) {
 
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        url:"note/imageUpload",
+        url:"/note/imageUpload",
         type: "post",
         data: data,
         timeout: 10000,
@@ -73,20 +73,26 @@ function sendFile(file,tag) {
         processData: false,
     })
     .done(function(data){
-        console.log(画像のアップロード成功);
+        console.log("画像のアップロード成功");
         $(tag).summernote('insertImage',data);
     })
     .fail(function(error){
-        console.log(画像のアップロード失敗);
+        console.log("画像のアップロード失敗");
     });
 }
 
 //リストを取得
 function getList(type){
+    let url = "/note/getList";
+    let path = location.pathname;
+    if(path.indexOf("/note/trash") !== -1){
+        console.log('ゲットリストです。ゴミ箱です');
+        url = "/note/trash/getList";
+    }
     let $method = $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         timeout: 10000,
-        url: "note/getList",
+        url: url,
         type: "post",
         data: {'type':type},
         beforeSend: function(jqXHR, settings){
@@ -115,10 +121,16 @@ function createListChild(data){
 
 //ノートを取得
 function getNote(id){
+    let url = "/note/getNote";
+    let path = location.pathname;
+    if(path.indexOf("/note/trash") !== -1){
+        console.log('ゲットリストです。ゴミ箱です');
+        url = "/note/trash/getNote";
+    }
     let $method = $.ajax({
          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
          timeout: 10000,
-         url: "note/getNote",
+         url: url,
          type: "post",
          data: {'id':id},
          beforeSend: function(jqXHR, settings){
@@ -134,12 +146,19 @@ function getNote(id){
 };
 
 function displayNote($data){
-    $('#edit-note-field').empty();
-    let $id = $data.id;
-    let $text = ($data.textnote)? $data.textnote : $data.text;
-    let $string = ' <input type="hidden" name="id" value="'+ $id +'" ><div id ="edit-note" class="click2edit main_article">' + $text + '<div>';
-    $('#edit-note-field').html($string);
-    history.pushState($id,null,"?id=" + $id);
+    if($data !== ''){
+        $('#edit-note-field').empty();
+        let $id = $data.id;
+        let $text = ($data.textnote)? $data.textnote : $data.text;
+        let $string = ' <input type="hidden" name="id" value="'+ $id +'" ><div id ="edit-note" class="click2edit main_article">' + $text + '<div>';
+        $('#edit-note-field').html($string);
+        history.pushState($id,null,"?id=" + $id);
+        enableBtns("auto");
+    }else{
+        console.log('表示できませんでした');
+        enableBtns('none');
+        $('#edit-note-field').html("ノートを選んでください");
+    }
 };
 
 function getNoteDisplay(id){
@@ -148,7 +167,7 @@ function getNoteDisplay(id){
         console.log("getNotedisplay成功");
         displayNote(data);
     }).fail(function(data){
-        console.log('getNote失敗');
+        console.log('getNoteDisplay失敗');
     }).always(function(){
     });
 }
@@ -167,7 +186,7 @@ let noteCreate = function() {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         timeout: 10000,
-        url: "note/create",
+        url: "/note/create",
         type: "post",
         data: $("#new-note-form").serialize(),
         beforeSend: function(jqXHR, settings){
@@ -207,7 +226,7 @@ let noteSave = function() {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         timeout: 10000,
-        url: "note/update",
+        url: "/note/update",
         type: "post",
         data: $data,
         beforeSend: function(jqXHR, settings){
@@ -229,34 +248,38 @@ let noteDelete = function(){
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             timeout: 10000,
-            url: "note/delete",
+            url: "/note/delete",
             type: "post",
             data: $("#edit-note-form").serialize(),
             beforeSend: function(jqXHR, settings){
-                $('#note-edit-btn').css('pointer-events','none');
-                $('#note-save-btn').css('pointer-events','none');
-                $('#note-delete-btn').css('pointer-events','none');
+                enableBtns('none');
             },
         }).done(function(data){
-            alert("削除しました");
+            console.log(data);
+            disapperElem('[data-id="'+data+'"]');
+            enableBtns('none');
+            alert("ゴミ箱に移動しました");
         }).fail(function(data){
             console.log('削除失敗');
+            enableBtns('auto');
         }).always(function(){
-            $('#note-edit-btn').css('pointer-events','auto');
-            $('#note-save-btn').css('pointer-events','auto');
-            $('#note-delete-btn').css('pointer-events','auto');
         });
     }else{
         return false;
     }
 };
 
+function disapperElem(id){
+    $(id).hide();
+    $('#edit-note-field').empty();
+}
+
 let noteRestore = function(){
     if(confirm("このノートをゴミ箱から出しますか?")){
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             timeout: 10000,
-            url: "note/trash/restore",
+            url: "/note/trash/restore",
             type: "post",
             data: $("#edit-note-form").serialize(),
             beforeSend: function(jqXHR, settings){
@@ -266,6 +289,7 @@ let noteRestore = function(){
             },
         }).done(function(data){
             alert("復元完了");
+            disapperElem('[data-id="'+data+'"]');
         }).fail(function(data){
             console.log('復元失敗');
         }).always(function(){
@@ -283,7 +307,7 @@ let noteForceDelete = function(){
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             timeout: 10000,
-            url: "note/trash/forceDelete",
+            url: "/note/trash/forceDelete",
             type: "post",
             data: $("#edit-note-form").serialize(),
             beforeSend: function(jqXHR, settings){
@@ -293,6 +317,7 @@ let noteForceDelete = function(){
             },
         }).done(function(data){
             alert("忘却の彼方へ");
+            disapperElem('[data-id="'+data+'"]');
         }).fail(function(data){
             console.log('削除失敗');
         }).always(function(){
@@ -305,13 +330,22 @@ let noteForceDelete = function(){
     }
 };
 
-//テスト用
+
+// クリックアクション以外
+function enableBtns(btn){
+    //有効:auto 無効:none
+    $('#note-edit-btn').css('pointer-events',btn);
+    $('#note-save-btn').css('pointer-events',btn);
+    $('#note-delete-btn').css('pointer-events',btn);
+}
+
+//Ajaxテスト用スクリプト
 $(function(){
     $("#ajax").on('click',function(){
         console.log("クリックされました!");
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url:"note/api_ajax/get_json",
+            url:"/note/api_ajax/get_json",
             type:"post",
             dataType:'json',
             data: {
