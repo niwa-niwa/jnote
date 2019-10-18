@@ -76,3 +76,7 @@
 
 @section('footer')
 @endsection
+
+@section('js-scripts')
+    <script src="{{ asset('js/note.js') }}" charset="utf-8"></script>
+@endsection

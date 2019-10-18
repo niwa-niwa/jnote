@@ -70,6 +70,7 @@ h1{
     margin-bottom: 5px;
 }
 
+
 /*  LIST VIEW CSS */
 .list_parent{
     display: inline-block;
@@ -109,6 +110,7 @@ h1{
     max-height: 650px;
     max-width: 650px;
 }
+
 
 /* ARTICLE VIEW CSS */
 .article_view{

@@ -43,7 +43,8 @@ Route::group(['prefix' => 'note', 'middleware' => 'auth'],function(){
     Route::post('trash/forceDelete','NoteController@forceDelete');
 
     Route::post('api_ajax/get_json', 'NoteController@ajax_get_json');
-
-
-
 });
+
+// Route::group(['prefix' => 'settings' , 'middleware' => 'auth'],function(){
+//     Route::get('/','SettingsController@index');
+// });

@@ -40,12 +40,11 @@
         </main>
     </div><!-- END wrap_content -->
 
-    {{-- @section('footer')
+    @section('footer')
     <footer class="footer_main">
-        <div>
-            <p>That Boss</p>
-        </div>
-    </footer> --}}
+    </footer>
+    @yield('js-scripts')
     <script src="{{ asset('js/main.js') }}" charset="utf-8"></script>
+
 </body>
 </html>
