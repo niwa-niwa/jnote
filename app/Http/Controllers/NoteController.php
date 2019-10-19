@@ -112,23 +112,25 @@ class NoteController extends Controller
     }
 
     public function imageUpload(Request $req){
+        $data = "ファイルが格納されていません";
         logger("Ajax受信");
         if ($_FILES['file']['name']) {
             if (!$_FILES['file']['error']) {
                 $name = md5(rand(100, 200));
                 $ext = explode('.', $_FILES['file']['name']);
                 $filename = $name . '.' . $ext[1];
-                $destination = '/home/vagrant/code/journalapp/public/images/' . $filename; //change this directory
+                $destination = public_path() . '/images/' . $filename; //change this directory
                 $location = $_FILES["file"]["tmp_name"];
                 move_uploaded_file($location, $destination);
                 logger($filename);
-                echo 'http://homestead.test/images/' . $filename;//change this URL
+                $data = $filename;
             }
             else
             {
-              echo  $message = 'Ooops!  Your upload triggered the following error:  '.$_FILES['file']['error'];
+                $data = 'Ooops!  Your upload triggered the following error:  '.$_FILES['file']['error'];
             }
         }
+        return $data;
     }
 
     public function ajax_get_json(Request $req) {

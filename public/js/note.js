@@ -64,7 +64,9 @@ function sendFile(file,tag) {
     })
     .done(function(data){
         log("画像のアップロード成功");
-        $(tag).summernote('insertImage',data);
+        log(location.hostname+"images"+data);
+        $(tag).summernote('insertImage',location.protocol+"//"+location.hostname+"/images/"+data);
+
     })
     .fail(function(error){
         log("画像のアップロード失敗");
