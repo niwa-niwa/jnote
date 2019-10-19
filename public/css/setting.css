@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+.setting-columns:hover{
+    background-color: #c2b7ffe3;
+    /* font-style: italic; */
+}
+
+.setting-columns{
+    padding: 7px 10px;
+    border-bottom: 1px solid #ccccccba;
+}
+.setting-columns p{
+    position: relative;
+    margin: 1em;
+}
+.setting-columns p::after{
+    position: absolute;
+    content: ">";
+    top: 0;
+    right: 0;
+}
+
+.setting-columns span{
+    margin-left: 2em;
+    letter-spacing: 0.16em;
+}
+.setting-title{
+    font-size: 18px;
+    font-weight: bold;
+}

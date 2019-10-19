@@ -1,7 +1,9 @@
 <?php
 use App\Http\Controllers\DiaryController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\SettingController;
 use App\Note;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\DataCollector\AjaxDataCollector;
 
 /*
@@ -24,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/logout',function(){
     Auth::logout();
-    return view('welcome');
+    return redirect('/');
 });
 
 Route::group(['prefix' => 'note', 'middleware' => 'auth'],function(){
@@ -45,6 +47,10 @@ Route::group(['prefix' => 'note', 'middleware' => 'auth'],function(){
     Route::post('api_ajax/get_json', 'NoteController@ajax_get_json');
 });
 
-// Route::group(['prefix' => 'settings' , 'middleware' => 'auth'],function(){
-//     Route::get('/','SettingsController@index');
-// });
+Route::group(['prefix' => 'settings' , 'middleware' => 'auth'],function(){
+    Route::get('/','SettingController@index');
+    Route::post('name','SettingController@settingName');
+    Route::post('mail','SettingController@settingMail');
+    Route::post('password','SettingController@settingPassword');
+    Route::get('delete','SettingController@settingDelete');
+});

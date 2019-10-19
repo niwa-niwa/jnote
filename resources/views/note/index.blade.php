@@ -38,7 +38,6 @@
 <div class="article_view">
     <div class="center">
         <div id="display-post">
-        @isset($items[0])
             <div class="list_top">
                 <button id="note-edit-btn" class="btn btn-primary" onclick="noteEdit()" type="button">Edit</button>
                 <button id="note-save-btn" class="btn btn-primary" onclick="noteSave()" type="button">Save</button>
@@ -48,9 +47,6 @@
                 {{ csrf_field() }}
                 <div id="edit-note-field"></div>
             </form>
-        @else
-            <p>ノートはありません。</p>
-        @endisset
         </div>
 
         <div id="new-post" style="display:none;">

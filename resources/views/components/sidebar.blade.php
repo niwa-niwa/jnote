@@ -11,7 +11,7 @@
                 {{-- <i class="fas fa-rss-square side-icons" title="RSS"></i><br>
                 <i class="fas fa-yen-sign side-icons"></i><br>
                 <i class="far fa-calendar-alt side-icons" title="Calendar"></i><br> --}}
-                <a href="/logout/" onclick="return confirm('本当にログアウトしますか?');" ><i class="fas fa-user-circle side-icons" style="bottom: 0; left: 10px; position: absolute; " title="ログアウト"></i><br></a>
+                <a href="/settings/" ><i class="fas fa-user-circle side-icons" style="bottom: 0; left: 10px; position: absolute; " title="ログアウト"></i><br></a>
             </nav>
         </div>
     </div>

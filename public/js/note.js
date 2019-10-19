@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 //再度リストに子リスト追加
 function addlistChild(data){
-    let $text =data.text.substr(0,50);
+    let $text = data.text.substr(0,50);
     let $str = $text.replace(/^\s+/,"");
     let $string = '<div class="list_child" data-id="'+ data.id +'">'+ $str +'</div>';
     $('.list_middle').prepend($string);
@@ -36,6 +36,7 @@ function setSummernote(tag){
         ],
         height: "calc(100vh - 110px)",
         lang: "ja-JP",
+        placeholder: 'ここに入力してください',
 
         callbacks: {
             onImageUpload: function(files) {
@@ -146,7 +147,7 @@ function displayNote($data){
     }else{
         log('表示できませんでした');
         noteEnableBtns('none');
-        $('#edit-note-field').html("ノートを選んでください");
+        $('#edit-note-field').html("ノートを選択するか新規ノートで作成してください");
     }
 };
 

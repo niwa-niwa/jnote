@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <title>Spot Journal | @yield('title')</title>
+    @yield('head')
 </head>
 <body>
 

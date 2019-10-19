@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Portfolio | Note</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -68,7 +68,8 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        {{-- <a href="{{ url('/home') }}">Home</a> --}}
+                        <a href="{{ url('/note') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -80,11 +81,20 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="title m-b-md" style="color:red;">
+                    {{-- Laravel --}}
+                    重要  IMPORTANT
                 </div>
+                <h2>これはポートフォリオサイトです。This is a Portfolio</h2>
+                これは開発途中のノートアプリです。<br>
+                将来的にはタグ機能や検索機能を実装してEvernoteのようなノートアプリになり、他にもカレンダーやRSS機能を追加して生活が便利になるアプリになる予定です。<br><br>
+                画面右上よりアカウント作成してサイトの動作をお試しください。<br><br>
+                なお、<strong>このサイトは公開サイトですが、Laravel及びPHPをどれだけ使えるか見て頂くためのポートフォリオサイト</strong>となっておりますので、データは一定時間で削除されますので、<h3 style="color:red;">個人情報の入力は絶対にしないでください。</h3>
+                アカウント作成にメールアドレスが必要ですが、<strong>@マークを含む架空のメールアドレスをご入力ください</strong>。
+                <br>作成したアカウントはログイン後、画面左下のアイコンからご自身で削除することができます。
 
-                <div class="links">
+                <h2>This app is for study so it is not warranty to save your data.<br> Unfortunately if you could not understand Japanese, you could not use the app <br>Thank you for coming here and understanding</h2>
+                {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -92,7 +102,7 @@
                     <a href="https://nova.laravel.com">Nova</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>
