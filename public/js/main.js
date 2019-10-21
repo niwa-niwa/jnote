@@ -10,7 +10,7 @@ function getParam(name, url) {
 }
 
 function log(param){
-    // console.log(param);
+    console.log(param);
 }
 
 //Ajaxテスト用スクリプト

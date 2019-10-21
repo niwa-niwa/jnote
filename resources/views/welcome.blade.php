@@ -94,6 +94,22 @@
                 <br>作成したアカウントはログイン後、画面左下のアイコンからご自身で削除することができます。
 
                 <h2>This app is for study so it is not warranty to save your data.<br> Unfortunately if you could not understand Japanese, you could not use the app <br>Thank you for coming here and understanding</h2>
+
+                <br><br>
+                @if (Route::has('login'))
+                <div class="center links">
+                    @auth
+                        {{-- <a href="{{ url('/home') }}">Home</a> --}}
+                        <a href="{{ url('/note') }}" style="padding:20px; color:white; font-size: 26px; background-color:#7777f3; border-radius:10px;" >Home</a>
+                    @else
+                        <a href="{{ route('login') }}" style="padding:20px; color:white; font-size: 26px; background-color:#7777f3; border-radius:10px; ">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"  style="padding:20px; color:white; font-size: 26px; background-color:#7777f3; border-radius:10px; ">Register</a>
+                        @endif
+                    @endauth
+                </div>
+                @endif
                 {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
